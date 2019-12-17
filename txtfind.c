@@ -1,9 +1,16 @@
+/*
+ * txtfind.c
+ *
+ *
+ */
 #include <stdio.h>
 #include <string.h>
-#define Line 256
-#define Word 30
+#define LINE 256
+#define WORD 30
 // This function need to check if str contain word
-int subString (char *str, char *word){
+
+int substring (char *str, char *word)
+{
           int i=0;
 
        while (*str!='\0')
@@ -16,14 +23,16 @@ int subString (char *str, char *word){
        {
                  i=0;
        }
-       
+
        str++;
        }
 return 0; // return false
-        
+
 }
+
 // This functin check if the word similiar until num of change to str
-int similiar (char *str, char *word, int change){
+int similar (char *str, char *word, int change)
+{
           int i=0;
           int j=-1; // num of mistake
        while (*str!='\0')
@@ -32,72 +41,161 @@ int similiar (char *str, char *word, int change){
           i++;
           if (strlen(word)==i) return 1;
        }
-       else // if the char is not equals 
+       else // if the char is not equals
        {
                  j++; // num of mistake
-                 if (j==change){ 
+                 if (j==change){
                     i=0;
                     j=0;
                  }
-                 
+
        }
-       
+
        str++; // pointers ++
        }
-       
+
 return 0;
-        
+
 }
+
+
 // this function need to split word from str
 //have a problem with function
-int word_split( char *str, char *word, int counter){
+int word_split( char *str, char *word, int counter) //for foxi: i dont use this function. do you?
+{
 //           printf("%d""\n", sub);
-          
+
           int i=0;
            while ((*str!=' '))
           {
           *(word)= *(str+counter);
           word++;
-          str++;  
-          i++;        
+          str++;
+          i++;
           }
           *word='\0';
           return i+1;
 }
 //this function need to split lines
-int line_split( char *str, char *word, int counter){
-          
+
+int line_split( char *str, char *word, int counter) //for foxi: i dont use this function. do you?
+{
+
           int i=0;
            while ((*str!='\0')) //need to change to \n or '\0'
           {
           *(word)= *(str+counter);
           word++;
-          str++;  
-          i++;        
+          str++;
+          i++;
           }
           *word='\0';
           return i+1;
 }
-int main () {
-   char str[50]="crat lcat meir cats"; //Ginton need to change it to scan redicration 
-   char find_word[] ="cat"; // the word to find
-   char word_line[Line];
-   //part A
-   
-   //Part B
-   // check similiar word and print
-   char word1[Word];
-   int counter = 0;
 
-   while (*(str+counter)!='\0'){
-          
- char *c =str;
-int num_word = word_split(c, word1,counter);
-counter= counter + num_word;
-c= c+counter;
-          if (similiar(word1,find_word,1)==1)
-   printf("%s"" \n \n", word1); 
+int getLine(char s[])
+{
+	int SizeLine = 0;
+	char letter = getchar();
+
+		while(letter=='\n')  //remove the spare whitelines in the begening of the file.
+			letter = getchar();
+
+	if(letter==EOF) //if the input is empty.
+		return 0;
+
+	while((letter != EOF) &&(letter != '\n') && (SizeLine < LINE))
+	{
+		s[SizeLine]=letter;
+		SizeLine++;
+		letter = getchar();
+	}
+	s[SizeLine]='\0'; // end of the srtring;
+
+	return SizeLine;
+
+}
+
+
+
+int getword(char w[])
+{
+	int SizeWord = 0;
+	char letter = getchar();
+
+	while((letter != EOF)&&(letter != ' ') &&(letter != '\t')&&(letter != '\n') && (SizeWord < WORD))
+	{
+		w[SizeWord]=letter;
+		SizeWord++;
+
+		letter = getchar();
+	}
+	w[SizeWord]='\0'; // end of the srtring;
+
+
+	return SizeWord;
+
+}
+
+
+void print_lines(char * str)
+{
+	char line[LINE];
+	int SizeLine = getLine(line);
+
+	while(SizeLine != 0)
+	{
+		if(substring(line, str)==1)
+			printf("%s\n", line);
+
+		SizeLine = getLine(line); //line.next();
+	}
+
+}
+
+
+
+void print_similar_words(char * str)
+{
+	char word[WORD];
+	int SizeWord = getword(word);
+	while(SizeWord != 0)
+	{
+		if(similar(word, str,1)==1)
+			printf("%s\n", word);
+
+		SizeWord = getLine(word); //word.next();
+	}
+
+}
+
+int main ()
+{
+
+   //part A
+   char word[WORD];
+   char option;
+
+   getword(word); //take the first word in the first line
+
+
+
+   scanf(" %c\n" , &option);
+
+
+   //Part B
+
+   	if(option == 'a')
+   		print_lines(word);
+
+   	else if(option == 'b')
+   		print_similar_words(word);
+
+
+   	return 0;
 
    }
-   
-}
+
+
+
+
