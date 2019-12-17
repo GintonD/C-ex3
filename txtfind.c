@@ -61,7 +61,8 @@ return 0;
 
 // this function need to split word from str
 //have a problem with function
-int word_split( char *str, char *word, int counter){
+int word_split( char *str, char *word, int counter) //for foxi: i dont use this function. do you?
+{
 //           printf("%d""\n", sub);
 
           int i=0;
@@ -77,7 +78,7 @@ int word_split( char *str, char *word, int counter){
 }
 //this function need to split lines
 
-int line_split( char *str, char *word, int counter)
+int line_split( char *str, char *word, int counter) //for foxi: i dont use this function. do you?
 {
 
           int i=0;
@@ -105,8 +106,8 @@ int getLine(char s[])
 
 	while((letter != EOF) &&(letter != '\n') && (SizeLine < LINE))
 	{
-		SizeLine++;
 		s[SizeLine]=letter;
+		SizeLine++;
 		letter = getchar();
 	}
 	s[SizeLine]='\0'; // end of the srtring;
@@ -124,11 +125,13 @@ int getword(char w[])
 
 	while((letter != EOF)&&(letter != ' ') &&(letter != '\t')&&(letter != '\n') && (SizeWord < WORD))
 	{
-		SizeWord++;
 		w[SizeWord]=letter;
+		SizeWord++;
+
 		letter = getchar();
 	}
 	w[SizeWord]='\0'; // end of the srtring;
+
 
 	return SizeWord;
 
@@ -139,9 +142,10 @@ void print_lines(char * str)
 {
 	char line[LINE];
 	int SizeLine = getLine(line);
+
 	while(SizeLine != 0)
 	{
-		if(substring(str, line)==1)
+		if(substring(line, str)==1)
 			printf("%s\n", line);
 
 		SizeLine = getLine(line); //line.next();
@@ -157,7 +161,7 @@ void print_similar_words(char * str)
 	int SizeWord = getword(word);
 	while(SizeWord != 0)
 	{
-		if(similar(str, word,1)==1)
+		if(similar(word, str,1)==1)
 			printf("%s\n", word);
 
 		SizeWord = getLine(word); //word.next();
@@ -167,16 +171,18 @@ void print_similar_words(char * str)
 
 int main ()
 {
-	printf("sfdgvfcghgn ");
+
    //part A
    char word[WORD];
    char option;
+
    getword(word); //take the first word in the first line
 
-   printf("%s",&option);
-   while(option!=' ') // fllow the first line until get the option letter
-	   scanf(" %c\n", &option);
-   printf("%s000009",&option);
+
+
+   scanf(" %c\n" , &option);
+
+
    //Part B
 
    	if(option == 'a')
