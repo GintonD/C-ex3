@@ -162,9 +162,10 @@ void print_similar_words(char * str)
 	while(SizeWord != 0)
 	{
 		if(similar(word, str,1)==1)
-			printf("%s\n", word);
+			printf("%s\n", word); //check it
 
-		SizeWord = getLine(word); //word.next();
+		//SizeWord = getLine(word); //word.next();
+		SizeWord = getword(word); //word.next();
 	}
 
 }
@@ -181,6 +182,7 @@ int main ()
 
 
    scanf(" %c\n" , &option);
+   //printf("op= %c\n" , option);
 
 
    //Part B
